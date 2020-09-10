@@ -19,7 +19,6 @@ import org.bukkit.util.Vector;
 
 import com.github.jp.erudo.ebowspleef2.Main;
 import com.github.jp.erudo.ebowspleef2.enums.GameState;
-import com.github.jp.erudo.ebowspleef2.enums.Teams;
 import com.github.jp.erudo.ebowspleef2.item.Items;
 
 import net.md_5.bungee.api.ChatColor;
@@ -72,6 +71,8 @@ public class EntityDamageListener implements Listener {
 				return;
 			}
 
+			e.setCancelled(true);
+
 
 			Arrow arrow = (Arrow) damager;
 
@@ -83,17 +84,26 @@ public class EntityDamageListener implements Listener {
 			Player hitPlayer = (Player) entity;
 
 			if(shooter != hitPlayer) {
-				if(plg.getTeam(Teams.BLUE).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.BLUE).hasEntry(shooter.getName())) {
-					e.setCancelled(true);
-					hitPlayer.setHealth(hitPlayer.getHealth() + 10);
-					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
-				}
-
-				if(plg.getTeam(Teams.RED).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.RED).hasEntry(shooter.getName())) {
-					e.setCancelled(true);
-					hitPlayer.setHealth(hitPlayer.getHealth() + 10);
-					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
-				}
+//				if(plg.getTeam(Teams.BLUE).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.BLUE).hasEntry(shooter.getName())) {
+//					e.setCancelled(true);
+//					try {
+//						hitPlayer.setHealth(hitPlayer.getHealth() + 5);
+//					}catch(IllegalArgumentException ex) {
+//
+//					}
+//
+//					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
+//				}
+//
+//				if(plg.getTeam(Teams.RED).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.RED).hasEntry(shooter.getName())) {
+//					e.setCancelled(true);
+//					try {
+//						hitPlayer.setHealth(hitPlayer.getHealth() + 5);
+//					}catch(IllegalArgumentException ex) {
+//					}
+//
+//					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
+//				}
 
 				ItemStack item = shooter.getInventory().getItemInMainHand();
 				if(item != null && item.getType() == Material.BOW && item.hasItemMeta()) {
