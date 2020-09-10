@@ -98,7 +98,8 @@ public class ArrowListener implements Listener {
 		if (e.getEntity() instanceof Arrow) {
 			arrows.remove(e.getEntity());
 
-			//あたったブロックが羊毛だったら消去
+			//TODO:
+			//あたったブロックがconfigに書かれているもの以外だったら消去
 			//あたったブロックを含む2*2*2の立方体
 
 			Block block = e.getHitBlock();
@@ -124,7 +125,7 @@ public class ArrowListener implements Listener {
 					block.getLocation().getZ() + 1);
 
 			if (plg.getMyConfig().getArrowrange() <= 1) {
-				if (!(block.getType() == Material.WOOL)) {
+				if (plg.getMyConfig().getNotBrokenBlocks().contains(block.getType())) {
 					return;
 				}
 
@@ -138,7 +139,7 @@ public class ArrowListener implements Listener {
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 
 			} else {
-				if (!(block.getType() == Material.WOOL)) {
+				if (plg.getMyConfig().getNotBrokenBlocks().contains(block.getType())) {
 					return;
 				}
 

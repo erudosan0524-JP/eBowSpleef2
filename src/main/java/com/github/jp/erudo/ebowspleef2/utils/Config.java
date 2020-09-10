@@ -1,6 +1,10 @@
 package com.github.jp.erudo.ebowspleef2.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -18,6 +22,7 @@ public class Config {
 	private String confLobbyPos;
 	private int arrowrange;
 	private boolean canRespawn;
+	private List<String> notBrokenBlocks;
 	private String beginCoordinate;
 	private String stageName;
 
@@ -39,6 +44,7 @@ public class Config {
 		confLobbyPos = config.getString("LobbyPosition");
 		arrowrange = config.getInt("ArrowRange");
 		canRespawn = config.getBoolean("canRespawn");
+		notBrokenBlocks = config.getStringList("notBrokenBlocks");
 		beginCoordinate = config.getString("beginCoordinate");
 		stageName = config.getString("stageName","stage1"); //デフォルトはstage1
 	}
@@ -119,6 +125,16 @@ public class Config {
 
 	public boolean isCanRespawn() {
 		return canRespawn;
+	}
+
+	public List<Material> getNotBrokenBlocks() {
+		List<Material> blocks = new ArrayList<Material>();
+
+		for(String s : notBrokenBlocks) {
+			blocks.add(Material.valueOf(s));
+		}
+
+		return blocks;
 	}
 
 	public void setCanRespawn(boolean canRespawn) {

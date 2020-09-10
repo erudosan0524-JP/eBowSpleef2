@@ -1,8 +1,13 @@
 defaultTime: 300
-RedPosition: 
-BluePosition: 
-LobbyPosition: 
-ArrowRange: 1
+RedPosition: "504 4 233"
+BluePosition: "404 4 165"
+LobbyPosition: "449 39 140"
+ArrowRange: 2
 canRespawn: true
-beginCoordinate: 
+notBrokenBlocks:
+  - 
+  - 
+  - 
+  - 
+beginCoordinate: "399 4 161"
 stageName: 
