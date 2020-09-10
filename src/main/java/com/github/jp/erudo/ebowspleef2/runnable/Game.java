@@ -25,17 +25,18 @@ public class Game extends BukkitRunnable {
 	private final Main plg;
 	private BukkitTask task;
 	private int count;
+	private int totalTime;
 	private TitleSender title;
 
 	public Game(Main plg, int count) {
 		this.plg = plg;
 		this.count = count;
+		this.totalTime = this.count;
 		title = new TitleSender();
 	}
 
 	public void run() {
 
-		int totalTime = count;
 		double percentage = count / totalTime;
 
 		BossBar Timebar = Bukkit.getServer().createBossBar("残り時間: " + totalTime, BarColor.GREEN, BarStyle.SEGMENTED_12);
