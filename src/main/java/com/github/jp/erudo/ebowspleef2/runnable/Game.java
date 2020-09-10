@@ -63,6 +63,8 @@ public class Game extends BukkitRunnable {
 					}
 				} else {
 					System.out.println("予期せぬ結果となりました。");
+					System.out.println("赤ポイント = " + Main.getRedPoint());
+					System.out.println("青ポイント = " + Main.getBluePoint());
 				}
 			}
 

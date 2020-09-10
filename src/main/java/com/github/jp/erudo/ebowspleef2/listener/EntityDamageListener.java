@@ -84,26 +84,6 @@ public class EntityDamageListener implements Listener {
 			Player hitPlayer = (Player) entity;
 
 			if(shooter != hitPlayer) {
-//				if(plg.getTeam(Teams.BLUE).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.BLUE).hasEntry(shooter.getName())) {
-//					e.setCancelled(true);
-//					try {
-//						hitPlayer.setHealth(hitPlayer.getHealth() + 5);
-//					}catch(IllegalArgumentException ex) {
-//
-//					}
-//
-//					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
-//				}
-//
-//				if(plg.getTeam(Teams.RED).hasEntry(hitPlayer.getName()) && plg.getTeam(Teams.RED).hasEntry(shooter.getName())) {
-//					e.setCancelled(true);
-//					try {
-//						hitPlayer.setHealth(hitPlayer.getHealth() + 5);
-//					}catch(IllegalArgumentException ex) {
-//					}
-//
-//					hitPlayer.getLocation().getWorld().spawnParticle(Particle.HEART, hitPlayer.getLocation(), 5, 1, 1, 1);
-//				}
 
 				ItemStack item = shooter.getInventory().getItemInMainHand();
 				if(item != null && item.getType() == Material.BOW && item.hasItemMeta()) {

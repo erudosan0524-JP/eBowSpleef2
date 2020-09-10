@@ -98,6 +98,8 @@ public class ArrowListener implements Listener {
 
 		if (e.getEntity() instanceof Arrow) {
 
+			List<Block> blocks = new ArrayList<Block>();
+
 			arrows.remove(e.getEntity());
 
 			if(Objects.isNull(e.getHitBlock())) {
@@ -109,26 +111,17 @@ public class ArrowListener implements Listener {
 			//あたったブロックを含む2*2*2の立方体
 
 			Block block = e.getHitBlock();
-			Location blockLoc1 = new Location(block.getWorld(), block.getLocation().getX() + 1,
-					block.getLocation().getY(),
-					block.getLocation().getZ());
-			Location blockLoc2 = new Location(block.getWorld(), block.getLocation().getX(), block.getLocation().getY(),
-					block.getLocation().getZ() + 1);
-			Location blockLoc3 = new Location(block.getWorld(), block.getLocation().getX() + 1,
-					block.getLocation().getY(),
-					block.getLocation().getZ() + 1);
-			Location blockLoc4 = new Location(block.getWorld(), block.getLocation().getX(),
-					block.getLocation().getY() + 1,
-					block.getLocation().getZ());
-			Location blockLoc5 = new Location(block.getWorld(), block.getLocation().getX() + 1,
-					block.getLocation().getY() + 1,
-					block.getLocation().getZ());
-			Location blockLoc6 = new Location(block.getWorld(), block.getLocation().getX(),
-					block.getLocation().getY() + 1,
-					block.getLocation().getZ() + 1);
-			Location blockLoc7 = new Location(block.getWorld(), block.getLocation().getX() + 1,
-					block.getLocation().getY() + 1,
-					block.getLocation().getZ() + 1);
+
+			for(int x=0; x < 2; x++) {
+				for(int y=0; y < 2; y++) {
+					for(int z=0; z < 2; z++ ) {
+						blocks.add(new Location(block.getWorld(), block.getLocation().getX() + x,
+					block.getLocation().getY() + y,
+					block.getLocation().getZ() + z).getBlock());
+					}
+				}
+			}
+
 
 			if (plg.getMyConfig().getArrowrange() <= 1) {
 				if (!plg.getMyConfig().getBrokenBlocks().contains(block.getType())) {
@@ -139,9 +132,6 @@ public class ArrowListener implements Listener {
 				block.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 1, 1, 1, 1);
 				block.getLocation().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, block.getLocation(), 1, 1, 1,
 						1);
-				blockLoc1.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
-				blockLoc2.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
-				blockLoc3.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 
 			} else {
@@ -149,20 +139,14 @@ public class ArrowListener implements Listener {
 					return;
 				}
 
-				block.setType(Material.AIR);
-				blockLoc1.getBlock().setType(Material.AIR);
-				blockLoc2.getBlock().setType(Material.AIR);
-				blockLoc3.getBlock().setType(Material.AIR);
-				blockLoc4.getBlock().setType(Material.AIR);
-				blockLoc5.getBlock().setType(Material.AIR);
-				blockLoc6.getBlock().setType(Material.AIR);
-				blockLoc7.getBlock().setType(Material.AIR);
+				for(Block b : blocks) {
+					b.setType(Material.AIR);
+				}
+
+
 				block.getLocation().getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
 				block.getLocation().getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, block.getLocation(), 1, 1, 1,
 						1);
-				blockLoc1.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
-				blockLoc2.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
-				blockLoc3.getWorld().spawnParticle(Particle.BLOCK_CRACK, block.getLocation(), 3, 2, 2, 2);
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 				//				block.getLocation().getWorld().createExplosion(block.getLocation().getX(), block.getLocation().getY(),
 				//						block.getLocation().getZ(), 10, false, false);
