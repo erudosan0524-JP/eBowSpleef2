@@ -35,7 +35,7 @@ public class Game extends BukkitRunnable {
 		this.totalTime = count;
 		this.count = this.totalTime;
 
-		Timebar = Bukkit.getServer().createBossBar("残り時間: " + totalTime, BarColor.GREEN, BarStyle.SEGMENTED_12);
+		Timebar = Bukkit.getServer().createBossBar("残り時間: " + count, BarColor.GREEN, BarStyle.SOLID);
 		title = new TitleSender();
 	}
 
@@ -169,9 +169,8 @@ public class Game extends BukkitRunnable {
 			} else {
 				plg.setCurrentGameState(GameState.END);
 			}
-			count--;
-
 			Timebar.setTitle("残り時間: " + count);
+			count--;
 		}
 	}
 

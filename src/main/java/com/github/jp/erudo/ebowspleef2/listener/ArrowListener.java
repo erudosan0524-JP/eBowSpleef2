@@ -99,7 +99,7 @@ public class ArrowListener implements Listener {
 			arrows.remove(e.getEntity());
 
 			//TODO:
-			//あたったブロックがconfigに書かれているもの以外だったら消去
+			//あたったブロックがconfigに書かれているものだったら消去
 			//あたったブロックを含む2*2*2の立方体
 
 			Block block = e.getHitBlock();
@@ -139,6 +139,9 @@ public class ArrowListener implements Listener {
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 
 			} else {
+
+				System.out.println(plg.getMyConfig().getBrokenBlocks());
+
 				if (!plg.getMyConfig().getBrokenBlocks().contains(block.getType())) {
 					return;
 				}
