@@ -38,7 +38,7 @@ public class Game extends BukkitRunnable {
 		int totalTime = count;
 		double percentage = count / totalTime;
 
-		BossBar Timebar = Bukkit.getServer().createBossBar("残り時間: " + count, BarColor.GREEN, BarStyle.SEGMENTED_12);
+		BossBar Timebar = Bukkit.getServer().createBossBar("残り時間: " + totalTime, BarColor.GREEN, BarStyle.SEGMENTED_12);
 		Timebar.setProgress(percentage);
 		Timebar.setVisible(true);
 
@@ -166,6 +166,8 @@ public class Game extends BukkitRunnable {
 				plg.setCurrentGameState(GameState.END);
 			}
 			count--;
+
+			Timebar.setTitle("残り時間: " + count);
 		}
 	}
 
