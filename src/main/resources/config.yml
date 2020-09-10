@@ -4,7 +4,7 @@ BluePosition: "404 4 165"
 LobbyPosition: "449 39 140"
 ArrowRange: 2
 canRespawn: true
-notBrokenBlocks:
+BrokenBlocks:
   - 
   - 
   - 

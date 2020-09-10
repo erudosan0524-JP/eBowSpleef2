@@ -125,7 +125,7 @@ public class ArrowListener implements Listener {
 					block.getLocation().getZ() + 1);
 
 			if (plg.getMyConfig().getArrowrange() <= 1) {
-				if (plg.getMyConfig().getNotBrokenBlocks().contains(block.getType())) {
+				if (!plg.getMyConfig().getBrokenBlocks().contains(block.getType())) {
 					return;
 				}
 
@@ -139,7 +139,7 @@ public class ArrowListener implements Listener {
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 
 			} else {
-				if (plg.getMyConfig().getNotBrokenBlocks().contains(block.getType())) {
+				if (!plg.getMyConfig().getBrokenBlocks().contains(block.getType())) {
 					return;
 				}
 
