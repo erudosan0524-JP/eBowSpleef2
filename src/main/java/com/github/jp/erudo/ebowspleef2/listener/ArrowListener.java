@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -96,7 +97,12 @@ public class ArrowListener implements Listener {
 		}
 
 		if (e.getEntity() instanceof Arrow) {
+
 			arrows.remove(e.getEntity());
+
+			if(Objects.isNull(e.getHitBlock())) {
+				return;
+			}
 
 			//TODO:
 			//あたったブロックがconfigに書かれているものだったら消去
@@ -139,9 +145,6 @@ public class ArrowListener implements Listener {
 				block.getLocation().getWorld().playSound(block.getLocation(), Sound.BLOCK_WOOD_BREAK, 1, 1);
 
 			} else {
-
-				System.out.println(plg.getMyConfig().getBrokenBlocks());
-
 				if (!plg.getMyConfig().getBrokenBlocks().contains(block.getType())) {
 					return;
 				}

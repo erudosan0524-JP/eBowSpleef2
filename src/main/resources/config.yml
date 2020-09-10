@@ -5,9 +5,6 @@ LobbyPosition: "449 39 140"
 ArrowRange: 2
 canRespawn: true
 BrokenBlocks:
-  - 
-  - 
-  - 
-  - 
+  - 35
 beginCoordinate: "399 4 161"
 stageName: 
