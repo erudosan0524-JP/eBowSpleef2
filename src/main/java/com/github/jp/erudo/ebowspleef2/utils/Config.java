@@ -22,7 +22,7 @@ public class Config {
 	private String confLobbyPos;
 	private int arrowrange;
 	private boolean canRespawn;
-	private List<String> notBrokenBlocks;
+	private List<Integer> notBrokenBlocks;
 	private String beginCoordinate;
 	private String stageName;
 
@@ -44,7 +44,7 @@ public class Config {
 		confLobbyPos = config.getString("LobbyPosition");
 		arrowrange = config.getInt("ArrowRange");
 		canRespawn = config.getBoolean("canRespawn");
-		notBrokenBlocks = config.getStringList("notBrokenBlocks");
+		notBrokenBlocks = config.getIntegerList("notBrokenBlocks");
 		beginCoordinate = config.getString("beginCoordinate");
 		stageName = config.getString("stageName","stage1"); //デフォルトはstage1
 	}
@@ -127,11 +127,12 @@ public class Config {
 		return canRespawn;
 	}
 
+	@SuppressWarnings("deprecation")
 	public List<Material> getNotBrokenBlocks() {
 		List<Material> blocks = new ArrayList<Material>();
 
-		for(String s : notBrokenBlocks) {
-			blocks.add(Material.valueOf(s));
+		for(int id : notBrokenBlocks) {
+			blocks.add(Material.getMaterial(id));
 		}
 
 		return blocks;
