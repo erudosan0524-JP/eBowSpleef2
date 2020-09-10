@@ -66,21 +66,23 @@ public class Game extends BukkitRunnable {
 				}
 			}
 
+			MessageManager.messageAll("ワールドを復元中です・・・");
+			WorldManager wm = new WorldManager();
+			Location loc = new Location(plg.getServer().getWorld("world"), plg.getMyConfig().getBeginCoordinate()[0],
+					plg.getMyConfig().getBeginCoordinate()[1], plg.getMyConfig().getBeginCoordinate()[2]);
+			wm.loadSchematic(loc, plg.getStageName());
+			MessageManager.messageAll("復元が完了しました！");
+
 			Main.setBluePoint(0);
 			Main.setRedPoint(0);
 
-
 			MessageManager.broadcastMessage("試合終了！！");
 			count = 0;
-
-			Timebar.removeAll();
 
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 				for(Player pla : Bukkit.getServer().getOnlinePlayers()) {
 					player.showPlayer(plg ,pla);
 				}
-
-				title.resetTitle(player);
 
 				player.setSneaking(false);
 				player.teleport(PlayersSetting.getLobbyPos());
@@ -107,14 +109,8 @@ public class Game extends BukkitRunnable {
 
 			}
 
-			MessageManager.messageAll("ワールドを復元中です・・・");
-			WorldManager wm = new WorldManager();
-			Location loc = new Location(plg.getServer().getWorld("world"), plg.getMyConfig().getBeginCoordinate()[0],
-					plg.getMyConfig().getBeginCoordinate()[1], plg.getMyConfig().getBeginCoordinate()[2]);
-			wm.loadSchematic(loc, plg.getStageName());
-			MessageManager.messageAll("復元が完了しました！");
-
 			plg.setCurrentGameState(GameState.PREPARE);
+			Timebar.removeAll();
 			plg.getServer().getScheduler().cancelTask(task.getTaskId());
 		}
 
