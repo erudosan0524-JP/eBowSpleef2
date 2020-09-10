@@ -26,12 +26,16 @@ public class Game extends BukkitRunnable {
 	private BukkitTask task;
 	private int count;
 	private int totalTime;
+
 	private TitleSender title;
+	private BossBar Timebar;
 
 	public Game(Main plg, int count) {
 		this.plg = plg;
-		this.count = count;
-		this.totalTime = this.count;
+		this.totalTime = count;
+		this.count = this.totalTime;
+
+		Timebar = Bukkit.getServer().createBossBar("残り時間: " + totalTime, BarColor.GREEN, BarStyle.SEGMENTED_12);
 		title = new TitleSender();
 	}
 
@@ -39,7 +43,6 @@ public class Game extends BukkitRunnable {
 
 		double percentage = count / totalTime;
 
-		BossBar Timebar = Bukkit.getServer().createBossBar("残り時間: " + totalTime, BarColor.GREEN, BarStyle.SEGMENTED_12);
 		Timebar.setProgress(percentage);
 		Timebar.setVisible(true);
 
@@ -70,7 +73,7 @@ public class Game extends BukkitRunnable {
 			MessageManager.broadcastMessage("試合終了！！");
 			count = 0;
 
-			Timebar.setVisible(false);
+			Timebar.removeAll();
 
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 				for(Player pla : Bukkit.getServer().getOnlinePlayers()) {
