@@ -5,10 +5,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.Score;
 
 import com.github.jp.erudo.ebowspleef2.Main;
 import com.github.jp.erudo.ebowspleef2.enums.GameState;
@@ -33,9 +35,13 @@ public class Game extends BukkitRunnable {
 
 	public void run() {
 
-		Score TimeScore = plg.getObj().getScore(ChatColor.GOLD + "残り時間: ");
-		Score RedPoint = plg.getObj().getScore(ChatColor.DARK_RED + "赤チーム獲得ポイント: ");
-		Score BluePoint = plg.getObj().getScore(ChatColor.DARK_BLUE + "青チーム獲得ポイント: ");
+		int totalTime = count;
+		double percentage = count / totalTime;
+
+		BossBar Timebar = Bukkit.getServer().createBossBar("残り時間: " + count, BarColor.GREEN, BarStyle.SEGMENTED_12);
+		Timebar.setProgress(percentage);
+		Timebar.setVisible(true);
+
 
 		if (plg.getCurrentGameState() == GameState.END) {
 			if (plg.getMyConfig().isCanRespawn()) {
@@ -59,19 +65,18 @@ public class Game extends BukkitRunnable {
 			Main.setBluePoint(0);
 			Main.setRedPoint(0);
 
-			RedPoint.setScore(Main.getRedPoint());
-			BluePoint.setScore(Main.getBluePoint());
-
 
 			MessageManager.broadcastMessage("試合終了！！");
 			count = 0;
 
-			TimeScore.setScore(0);
+			Timebar.setVisible(false);
 
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 				for(Player pla : Bukkit.getServer().getOnlinePlayers()) {
 					player.showPlayer(plg ,pla);
 				}
+
+				title.resetTitle(player);
 
 				player.setSneaking(false);
 				player.teleport(PlayersSetting.getLobbyPos());
@@ -112,7 +117,9 @@ public class Game extends BukkitRunnable {
 		if (plg.getCurrentGameState() == GameState.GAMING) {
 			if (count > 0) {
 
-				TimeScore.setScore(count);
+				for (Player p : plg.getServer().getOnlinePlayers()) {
+					Timebar.addPlayer(p);
+				}
 
 				//カウントダウン
 				if (count <= 3) { //0<count<=3
@@ -123,8 +130,12 @@ public class Game extends BukkitRunnable {
 				}
 
 				if (plg.getMyConfig().isCanRespawn()) {
-					RedPoint.setScore(Main.getRedPoint());
-					BluePoint.setScore(Main.getBluePoint());
+					for (Player p : plg.getServer().getOnlinePlayers()) {
+						title.sendTitle(p, null, null,
+								ChatColor.RED + "赤チームポイント: " + Main.getRedPoint()
+										+ "  " + ChatColor.BLUE + "青チームポイント: "
+										+ Main.getBluePoint());
+					}
 
 				} else {
 					for (Player p : plg.getServer().getOnlinePlayers()) {

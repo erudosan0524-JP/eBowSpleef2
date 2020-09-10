@@ -3,8 +3,6 @@ package com.github.jp.erudo.ebowspleef2;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
@@ -26,8 +24,6 @@ public class Main extends JavaPlugin {
 	//チーム関連
 	private ScoreboardManager scoreManager;
 	private Scoreboard board;
-	private Objective obj;
-	public final String objName = "情報";
 
 	private static Team red;
 	private static Team blue;
@@ -52,7 +48,6 @@ public class Main extends JavaPlugin {
 
 		scoreManager = Bukkit.getScoreboardManager();
 		board = scoreManager.getMainScoreboard();
-		obj = board.getObjective(objName);
 
 		//チームを消去
 		if (board.getTeam(Teams.RED.getName()) != null) {
@@ -85,12 +80,6 @@ public class Main extends JavaPlugin {
 		///////////////////////////
 		scoreManager = Bukkit.getScoreboardManager();
 		board = scoreManager.getMainScoreboard();
-		obj = board.getObjective(objName);
-		//無かったら作る
-		if (board.getObjective(objName) == null) {
-			obj = board.registerNewObjective(objName, "dummy");
-		}
-		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		//Team
 		if (board.getTeam(Teams.RED.getName()) == null) {
@@ -149,10 +138,6 @@ public class Main extends JavaPlugin {
 
 	public void setCurrentGameState(GameState state) {
 		this.currentState = state;
-	}
-
-	public Objective getObj() {
-		return this.obj;
 	}
 
 	public Team getTeam(Teams teams) {
